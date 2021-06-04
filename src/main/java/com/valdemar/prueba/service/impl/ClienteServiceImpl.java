@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ClienteServiceImpl implements ClienteService {
@@ -16,6 +17,13 @@ public class ClienteServiceImpl implements ClienteService {
     
     @Override
     public Cliente save(Cliente cliente) {
+        String nombres [] = cliente.getBussiness_id().split(" ");
+        if(nombres.length > 1){
+            cliente.setShare_key(nombres[0].charAt(0) + nombres[1]);
+        }else{
+            cliente.setShare_key(nombres[0]);
+        }
+
         return clienteRepository.save(cliente);
     }
 
@@ -25,7 +33,9 @@ public class ClienteServiceImpl implements ClienteService {
     }
 
     @Override
-    public List<Cliente> findByShare_key(String share_key) {
-        return null;
+    public Cliente findByByEmail(String email) {
+        return clienteRepository.findByByEmail(email);
     }
+
+
 }

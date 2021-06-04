@@ -5,6 +5,8 @@ import com.valdemar.prueba.service.impl.ClienteServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -23,40 +25,47 @@ public class ClienteController {
 
     @CrossOrigin(origins = "*")
     @RequestMapping(value = "/cliente", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
-    public Cliente saveCliente(@RequestBody Cliente request) {
+    public ResponseEntity<Cliente> saveCliente(@RequestBody Cliente request) {
 
         Cliente response = new Cliente();
+        HttpStatus httpStatus = null;
 
         try {
             response = clienteService.save(request);
             log.info("Guardando la información del cliente");
-
+            httpStatus = HttpStatus.OK;
         } catch (Exception e) {
             log.error("Error al guardar el cliente: "+e.getMessage());
             System.out.println("Error saveCliente Controller: "+ e);
+            httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
         }
 
-        return response;
+        return ResponseEntity.status(httpStatus).body(response);
     }
 
 
     @CrossOrigin(origins = "*")
     @RequestMapping(value = "/cliente", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
-    public List<Cliente> listClientes() {
+    public ResponseEntity<List<Cliente>> listClientes() {
 
         List<Cliente> response = new ArrayList<Cliente>();
+        HttpStatus httpStatus = null;
 
         try {
             response = clienteService.findAll();
             log.info("Listando la información de los clientes");
+            httpStatus = HttpStatus.OK;
 
         } catch (Exception e) {
             log.error("Error al listar a los clientes: "+e.getMessage());
             System.out.println("Error listClientes Controller: "+ e);
+            httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+
 
         }
 
-        return response;
+        return ResponseEntity.status(httpStatus).body(response);
+
     }
 
 
