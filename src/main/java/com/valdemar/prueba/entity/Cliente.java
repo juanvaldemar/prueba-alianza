@@ -43,4 +43,14 @@ public class Cliente implements Serializable {
     private Date end_date;
 
 
+    public Cliente(String share_key, String bussiness_id, String email, int phone) {
+        this.share_key = share_key;
+        this.bussiness_id = bussiness_id;
+        this.email = email;
+        this.phone = phone;
+    }
+
+    public Cliente(String email) {
+        this.email = email;
+    }
 }
