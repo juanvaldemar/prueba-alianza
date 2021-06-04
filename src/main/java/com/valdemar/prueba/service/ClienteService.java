@@ -4,6 +4,7 @@ import com.valdemar.prueba.entity.Cliente;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public interface ClienteService {
@@ -12,7 +13,7 @@ public interface ClienteService {
 
     List<Cliente> findAll();
 
-    List<Cliente> findByShare_key(String share_key);
 
+    Cliente findByByEmail(String email);
 
 }
