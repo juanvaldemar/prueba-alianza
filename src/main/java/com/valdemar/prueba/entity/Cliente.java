@@ -36,5 +36,11 @@ public class Cliente implements Serializable {
     @Column(name = "data_added")
     private Date data_added = new Date();
 
+    @Column(name = "start_date")
+    private Date start_date;
+
+    @Column(name = "end_date")
+    private Date end_date;
+
 
 }
