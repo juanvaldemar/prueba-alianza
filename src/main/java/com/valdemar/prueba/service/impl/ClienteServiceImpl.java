@@ -34,7 +34,7 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Override
     public Cliente findByByEmail(String email) {
-        return clienteRepository.findByByEmail(email);
+        return null;
     }
 
 
