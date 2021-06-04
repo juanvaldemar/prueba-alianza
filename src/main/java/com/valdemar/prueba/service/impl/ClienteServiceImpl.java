@@ -18,7 +18,7 @@ public class ClienteServiceImpl implements ClienteService {
     public Cliente save(Cliente cliente) {
         String nombres [] = cliente.getBussiness_id().split(" ");
         if(nombres.length > 1){
-            cliente.setShare_key(nombres[0].charAt(1) + nombres[1]);
+            cliente.setShare_key(nombres[0].charAt(0) + nombres[1]);
         }else{
             cliente.setShare_key(nombres[0]);
         }
