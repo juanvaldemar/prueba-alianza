@@ -16,7 +16,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.util.ResourceUtils;
+import org.springframework.util.StreamUtils;
 
+
+import java.io.FileInputStream;
+import java.nio.charset.Charset;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -45,22 +50,10 @@ public class ClienteControllerTest {
 
     @Test
     public void crearCliente() throws Exception{
-        System.out.println("allalalla");
-        given(service.findByByEmail("jgutierrez@gmail.com"))
-                .willReturn(new Cliente("jgutierrez@gmail.com"));
-        System.out.println("allalalla");
+        String mockPhoneNum = "534*******";
+        final FileInputStream fileInputStream = new FileInputStream(ResourceUtils.getFile("classpath:response_http200.json"));
+        final String staticResponse = StreamUtils.copyToString(fileInputStream, Charset.defaultCharset());
 
-        // when
-        MockHttpServletResponse response = mvc.perform(
-                get("/api/v1/295")
-                        .accept(MediaType.APPLICATION_JSON))
-                .andReturn().getResponse();
-
-        // then
-        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
-        assertThat(response.getContentAsString()).isEqualTo(
-                jsonSuperHero.write(new Cliente("jgutierrez@gmail.com")).getJson()
-        );
 
     }
 
